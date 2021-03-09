@@ -25,10 +25,7 @@ Based on the MoA annotations, the accuracy of solutions will be evaluated on the
 ---
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-Two notes:
-
-- the training data has an additional (optional) set of MoA labels that are not included in the test data and not used for scoring.
-- the re-run dataset has approximately 4x the number of examples seen in the Public test.
+The training data has an additional (optional) set of MoA labels that are not included in the test data and not used for scoring.
 
 Files:
 
@@ -37,4 +34,3 @@ Files:
 - train_targets_scored.csv - The binary MoA targets that are scored.
 - train_targets_nonscored.csv - Additional (optional) binary MoA responses for the training data. These are not predicted nor scored.
 - test_features.csv - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
-- sample_submission.csv - A submission file in the correct format.
