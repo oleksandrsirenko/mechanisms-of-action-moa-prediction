@@ -1,0 +1,21 @@
+sudo: required
+language: python
+matrix:
+    include:
+        - python: 3.7
+        - python: 3.6
+        - python: 3.5
+        - python: 3.4
+
+install:
+  - pip install numpy
+  - python setup.py install
+  - pip install flake8 coveralls pytest-cov
+
+# command to run tests
+script:
+  - py.test --cov iterstrat --cov-report term-missing
+  - flake8
+
+after_success:
+  - coveralls
