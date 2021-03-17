@@ -21,6 +21,9 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+data_dir = 'D:\GitHub\Mechanisms-of-Action-MoA-Prediction\data'
+os.listdir(data_dir)
+
 SEED_VALUE = 42
 
 
