@@ -19,12 +19,9 @@ import torch.optim as optim
 
 import warnings
 
-data_dir = "../input/lish-moa/"
-os.listdir(data_dir)
-
 warnings.filterwarnings("ignore")
 
-data_dir = 'D:\GitHub\Mechanisms-of-Action-MoA-Prediction\data'
+data_dir = "../data/lish-moa/"
 os.listdir(data_dir)
 
 SEED_VALUE = 42
