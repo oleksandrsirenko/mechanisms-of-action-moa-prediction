@@ -19,6 +19,9 @@ import torch.optim as optim
 
 import warnings
 
+data_dir = "../input/lish-moa/"
+os.listdir(data_dir)
+
 warnings.filterwarnings("ignore")
 
 SEED_VALUE = 42
