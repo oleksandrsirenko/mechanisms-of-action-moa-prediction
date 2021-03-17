@@ -21,9 +21,6 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-data_dir = "../data/lish-moa/"
-os.listdir(data_dir)
-
 SEED_VALUE = 42
 
 
