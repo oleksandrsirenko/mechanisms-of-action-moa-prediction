@@ -1,3 +1,9 @@
+# virtual environment configuration
 venv
+
+# VS Code
 .vscode
+
+# folders
 prototyping
+data
