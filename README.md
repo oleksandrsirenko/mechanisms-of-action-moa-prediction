@@ -1,7 +1,7 @@
 # Mechanism of Action (MoA) Prediction
 _The main goal of this research project is to develop an efficient algorithm for classifying drugs based on their biological activity._
 
-### Description
+## Description
 ---
 The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[[1]](#1)
 
@@ -17,11 +17,11 @@ One approach is to treat a sample of human cells with the drug and then analyze 
 
 As is customary, the dataset has been split into testing and training subsets. Hence, our task is to use the training dataset to develop an algorithm that automatically labels each case in the test set as one or more MoA classes. Note that since drugs can have multiple MoA annotations, the task is formally a multi-label classification problem.
 
-### Evaluation
+## Evaluation
 ---
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
-### Data
+## Data
 ---
 In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
 
@@ -29,18 +29,78 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-**Note:** To reproduce the solution you need to download the original dataset from [the official web site of the competition](https://www.kaggle.com/c/lish-moa) and extract a zip archive in the `data` folder. 
+**Note:** by default, the `data` folder is included in the `.gitignore` file. To reproduce the solution you need to download the original dataset from [the official web site of the competition](https://www.kaggle.com/c/lish-moa) and extract a zip archive in the `data` folder. 
 
 Files:
 
-- train_features.csv - Features for the training set. Features g- signify gene expression data, and c- signify cell viability data. cp_type indicates samples treated with a compound (cp_vehicle) or with a control perturbation (ctrl_vehicle); control perturbations have no MoAs; cp_time and cp_dose indicate treatment duration (24, 48, 72 hours) and dose (high or low).
-- train_drug.csv - This file contains an anonymous drug_id for the training set only.
-- train_targets_scored.csv - The binary MoA targets that are scored.
-- train_targets_nonscored.csv - Additional (optional) binary MoA responses for the training data. These are not predicted nor scored.
-- test_features.csv - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
-- sample_submission.csv - A submission file in the correct format.
+- `train_features.csv` - Features for the training set. Features g- signify gene expression data, and c- signify cell viability data. cp_type indicates samples treated with a compound (cp_vehicle) or with a control perturbation (ctrl_vehicle); control perturbations have no MoAs; cp_time and cp_dose indicate treatment duration (24, 48, 72 hours) and dose (high or low).
+- `train_drug.csv` - This file contains an anonymous drug_id for the training set only.
+- `train_targets_scored.csv` - The binary MoA targets that are scored.
+- `train_targets_nonscored.csv` - Additional (optional) binary MoA responses for the training data. These are not predicted nor scored.
+- `test_features.csv` - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
+- `sample_submission.csv` - A submission file in the correct format.
 
-### References
+## Project Organization
+------------
+
+    ├── LICENSE
+    ├── Makefile           <- Makefile with commands like `make data` or `make train`
+    ├── README.md          <- The top-level README for developers using this project
+    ├── data
+    │   ├── samples        <- Examples for tests and familiarization with the dataset structure
+    │   ├── processed      <- The final, canonical data sets for modeling
+    │   └── raw            <- The original, immutable data dump
+    │
+    ├── models             <- Trained and serialized models, model predictions, or model summaries
+    │
+    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+    │   │                     the creator's initials, and a short `-` delimited description, e.g.
+    │   │                     `1.0-jqp-initial-data-exploration`
+    │   ├── exploratory    <- Contains initial explorations
+    │   └── reports        <- Works that can be exported as html to the reports directory
+    │
+    ├── prototyping        <- Experiments with data, engineering approaches, models, etc.
+    │
+    ├── references         <- Data dictionaries, manuals, and all other explanatory materials
+    │
+    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   └── figures        <- Generated graphics and figures to be used in reporting
+    │
+    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+    │                         generated with `pip freeze > requirements.txt`
+    │
+    ├── setup.py           <- Makes project pip installable (pip install -e .) so src can be imported
+    ├── src                <- Source code for use in this project
+    │   ├── __init__.py    <- Makes src a Python module
+    │   │
+    │   ├── data           <- Scripts to download or generate data
+    │   │   └── make_dataset.py
+    │   │
+    │   ├── features       <- Scripts to turn raw data into features for modeling
+    │   │   └── build_features.py
+    │   │
+    │   ├── models         <- Scripts to train models and then use trained models to make
+    │   │   │                 predictions
+    │   │   ├── predict_model.py
+    │   │   └── train_model.py
+    │   │
+    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
+    │       └── visualize.py
+    │
+    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+
+### Installing development requirements
+---
+
+    pip install -r requirements.txt
+
+### Running the tests
+---
+
+    py.test tests
+---
+
+## References
 ---
  <a name="1">1.</a> [Kaggle](https://www.kaggle.com/) is the biggest data science community and the official hoster of the [compete](https://www.kaggle.com/c/lish-moa).
  
