@@ -1,4 +1,4 @@
-# Mechanism of Action (MoA) Prediction
+# Mechanisms of Action (MoA) Prediction
 _The main goal of this research project is to develop an efficient algorithm for classifying drugs based on their biological activity._
 
 ## Description
@@ -29,7 +29,7 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-**Note:** by default, the `data` folder is included in the `.gitignore` file. To reproduce the solution you need to download the original dataset from [the official web site of the competition](https://www.kaggle.com/c/lish-moa) and extract a zip archive in the `data` folder. 
+**Note:** by default, the `data` folder is included in the `.gitignore` file. To reproduce the solution you need to download the original dataset from [the official web site of the competition](https://www.kaggle.com/c/lish-moa) and extract a zip archive in the `data/row` folder. 
 
 Files:
 
@@ -47,7 +47,6 @@ Files:
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project
     ├── data
-    │   ├── samples        <- Examples for tests and familiarization with the dataset structure
     │   ├── processed      <- The final, canonical data sets for modeling
     │   └── raw            <- The original, immutable data dump
     │
