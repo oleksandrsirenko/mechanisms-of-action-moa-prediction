@@ -5,7 +5,7 @@
 #################################################################################
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-PROJECT_NAME = mechanisms-of-action-moa-prediction
+PROJECT_NAME = moa
 PYTHON_INTERPRETER = python3
 
 ifeq (,$(shell which conda))

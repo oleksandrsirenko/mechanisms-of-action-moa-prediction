@@ -1,8 +1,9 @@
 # Mechanisms of Action (MoA) Prediction
+
 _The main goal of this research project is to develop an efficient algorithm for classifying drugs based on their biological activity._
 
 ## Description
----
+
 The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[[1]](#1)
 
 >What is the Mechanism of Action (MoA) of a drug? And why is it important?
@@ -18,18 +19,23 @@ One approach is to treat a sample of human cells with the drug and then analyze 
 As is customary, the dataset has been split into testing and training subsets. Hence, our task is to use the training dataset to develop an algorithm that automatically labels each case in the test set as one or more MoA classes. Note that since drugs can have multiple MoA annotations, the task is formally a multi-label classification problem.
 
 ## Evaluation
----
+
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
 ## Data
----
+
 In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
 
 The training data has an additional (optional) set of MoA labels that are not included in the test data and not used for scoring.
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-**Note:** by default, the `data` folder is included in the `.gitignore` file. To reproduce the solution you need to download the original dataset from [the official web site of the competition](https://www.kaggle.com/c/lish-moa) and extract a zip archive in the `data/row` folder. 
+**Note:** To access the data, you need to follow these steps:
+
+1. Sign up for the Kaggle data science community if you haven't already
+2. Accept the [contest rules](https://www.kaggle.com/c/lish-moa/rules)
+3. [Download the original dataset](https://www.kaggle.com/c/lish-moa/data)
+4. Unzip downloaded zip file to the `data/raw` project folder.
 
 Files:
 
@@ -41,7 +47,6 @@ Files:
 - `sample_submission.csv` - A submission file in the correct format.
 
 ## Project Organization
-------------
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -54,7 +59,7 @@ Files:
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
-    │   │                     `1.0-jqp-initial-data-exploration`
+    │   │                     `1.0-os-initial-data-exploration`
     │   ├── exploratory    <- Contains initial explorations
     │   └── reports        <- Works that can be exported as html to the reports directory
     │
@@ -88,19 +93,16 @@ Files:
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
-### Installing development requirements
----
+## Installing development requirements
 
     pip install -r requirements.txt
 
-### Running the tests
----
+## Running the tests
 
     py.test tests
----
 
 ## References
----
+
  <a name="1">1.</a> [Kaggle](https://www.kaggle.com/) is the biggest data science community and the official hoster of the [compete](https://www.kaggle.com/c/lish-moa).
  
  <a name="2">2.</a> Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
@@ -111,4 +113,4 @@ Files:
 
 <a name="5">5.</a> Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
 
-<a name="6">6.</a> [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context).
+<a name="6">6.</a> [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
