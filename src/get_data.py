@@ -2,17 +2,18 @@
 
 # TODO: Make sure the following steps have done before execute the script:
 
-# 1. Created virtual environment for the project
-# 2. Activated virtual environment
-# 3. Installed all requrements including Kaggle with: `make requirements`
-# 4. Created Kaggle API Token saved to the folder `~/.kaggle/kaggle.json`
-#    or to location of you choice eg. home/user/conda/env/moa/bin
+# 1. Create virtual environment for the project
+# 2. Activate virtual environment
+# 3. Install all requrements including Kaggle with: `make requirements`
+# 4. Create Kaggle API Token `kaggle.json` and save it to the folder
+#    `~/.kaggle/` or to env location of you choice eg. home/user/conda/env/moa/bin
 # 5. Configurate lish_moa.sh file:
-#        - set KAGGLE_CONFIG_DIR equal to folder with saved kaggle.json
-#        - set path to the data/raw to unzip the data
+#        - set KAGGLE_CONFIG_DIR equal to folder where `kaggle.json` is stored
+#        - set full path to the `data/raw` to unzip the data
 # 6. Optional: `chmod 600 <path to kaggle.json>` to set permissions
 
 # details: https://github.com/Kaggle/kaggle-api#api-credentials
+
 
 # -*- coding: utf-8 -*-
 import os
