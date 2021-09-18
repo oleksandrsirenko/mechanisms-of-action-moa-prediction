@@ -22,6 +22,10 @@ As is customary, the dataset has been split into testing and training subsets. H
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
+$$
+score = -\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[ y_{i,m}{\rm log}\left(\hat{y}_{i,m} \right) + \left( 1 - y_{i,m} \right) {\rm log}\left( 1 - \hat{y}_{i,m} \right) \right]
+$$
+
 ## Data
 
 In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
@@ -30,14 +34,7 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-**Note:** To access the data, you need to follow these steps:
-
-1. Sign up for the Kaggle data science community if you haven't already
-2. Accept the [contest rules](https://www.kaggle.com/c/lish-moa/rules)
-3. [Download the original dataset](https://www.kaggle.com/c/lish-moa/data)
-4. Unzip downloaded zip file to the `data/raw` project folder.
-
-Files:
+### Files
 
 - `train_features.csv` - Features for the training set. Features g- signify gene expression data, and c- signify cell viability data. cp_type indicates samples treated with a compound (cp_vehicle) or with a control perturbation (ctrl_vehicle); control perturbations have no MoAs; cp_time and cp_dose indicate treatment duration (24, 48, 72 hours) and dose (high or low).
 - `train_drug.csv` - This file contains an anonymous drug_id for the training set only.
@@ -46,14 +43,41 @@ Files:
 - `test_features.csv` - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
 - `sample_submission.csv` - A submission file in the correct format.
 
+### Download dataset
+
+To access the data, you need to follow these steps:
+
+1. Sign up for the [Kaggle](https://www.kaggle.com/) data science community if you haven't already
+2. Accept the [contest rules](https://www.kaggle.com/c/lish-moa/rules)
+3. [Download the original dataset](https://www.kaggle.com/c/lish-moa/data)
+4. Unzip downloaded zip file to the `data/raw` project folder.
+
+### Kaggle API
+
+**If you don't need to use the Kaggle CLI tools, just skip the section.**
+
+The project preprocessing pipeline is integrated with the Kaggle API, so when you run the `make data` command, it first starts a check process to see if the dataset exists, and if not, the dataset will be loaded into the `data/raw` directory automatically.
+
+To make the automation process possible you need:
+
+1. Create a Kaggle API token, following the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication). This will download a fresh authentication token `kaggle.json` onto your machine. 
+2. Save obtained `kaggle.json` file to the `~/.kaggle` folder or to the environment location of you choice eg. `home/user/conda/env/moa/bin`
+3. Configure the `get_lish_moa.sh` file in the `src` directory:
+   - set `KAGGLE_CONFIG_DIR` environment variable equal to the path where you store the Kaggle API token `kaggle.json`
+   - set full path to the `data/raw` to unzip here downloaded dataset
+
+
 ## Project Organization
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project
     ├── data
-    │   ├── processed      <- The final, canonical data sets for modeling
-    │   └── raw            <- The original, immutable data dump
+    │   ├── processed      <- The final, canonical data sets for modeling. Obtained after
+    │   │                     preprocessing, merging, cleaning, feature engineering etc.
+    │   └── raw            <- The original, immutable data dump. Should be considered as read only.
+    │
+    ├── drafts             <- Drafts, hypothesis testing
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
@@ -63,7 +87,7 @@ Files:
     │   ├── exploratory    <- Contains initial explorations
     │   └── reports        <- Works that can be exported as html to the reports directory
     │
-    ├── prototyping        <- Experiments with data, engineering approaches, models, etc.
+    ├── notes              <- Notes, ideas, experiment tracking, etc.
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials
     │
@@ -75,42 +99,40 @@ Files:
     │
     ├── setup.py           <- Makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │
+    ├── test_environment   <- Test python environment is setup correctly
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
-## Installing development requirements
+## How to use
 
-    pip install -r requirements.txt
+To reproduce the solution, you need to clone the repository:
 
-## Running the tests
+      git clone https://github.com/oleksandrsirenko/mechanisms-of-action-moa-prediction.git moa
+    
+and [download the training dataset manually](#download-dataset) or [setup the Kaggle CLI](#kaggle-api) to automate this process.
 
-    py.test tests
+Then follow these steps:
+
+1. Make a virtual environment for the project: `make environment`
+2. Activate the environment: `source moa activate`
+3. Install dependencies: `make requirements`
+4. Prepare dataset: `make data`
+5. Training: `make train`
+6. Inference: `make prediction`
+7. Create a report: `make report`
+
 
 ## References
 
- <a name="1">1.</a> [Kaggle](https://www.kaggle.com/) is the biggest data science community and the official hoster of the [compete](https://www.kaggle.com/c/lish-moa).
+ <a id="1">1.</a> [Mechanisms of Action (MoA) Prediction](https://www.kaggle.com/c/lish-moa) challenge.
  
- <a name="2">2.</a> Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
+ <a id="2">2.</a> Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
 
- <a name="3">3.</a> Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
+ <a id="3">3.</a> Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
 
-<a name="4">4.</a> Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
+<a id="4">4.</a> Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
 
-<a name="5">5.</a> Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
+<a id="5">5.</a> Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
 
-<a name="6">6.</a> [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
+<a id="6">6.</a> [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
