@@ -81,8 +81,9 @@ venv
 # Exclude data from source control by default
 /data/
 
-# Exclude drafts
-prototyping/
+# Exclude drafts and notes
+drafts/
+notes/
 
 # Mac OS-specific storage files
 .DS_Store
