@@ -25,7 +25,15 @@ requirements: test_environment
 
 ## Download dataset if not exist
 get_gata:
-	$(PYTHON_INTERPRETER) src/get_data.py data/raw src/get_lish_moa.sh
+ifneq ("$(wildcard $(PROJECT_DIR)/data/raw/train_drug.csv)", "")
+	@echo ">>> MOA dataset already exists and is ready for preprocessing."
+else
+	@echo ">>> Data folder is empty. Downloading ..."
+	kaggle competitions download -c lish-moa
+	unzip lish-moa.zip -d $(PROJECT_DIR)/data/raw
+	rm *.zip
+	@echo ">>> MOA dataset is ready for preprocessing."
+endif
 
 ## Proprocess dataset
 data: get_gata
@@ -49,12 +57,10 @@ ifeq (True,$(HAS_CONDA))
 	\nsource activate $(PROJECT_NAME)"
 else
 	$(PYTHON_INTERPRETER) -m venv $(PROJECT_NAME)
-	source $(PROJECT_NAME)/bin/activate
 	@echo ">>> New python env created. Activate on Unix or MacOS with:\
 	\nsource $(PROJECT_NAME)/bin/activate"
 endif
 
 ## Test python environment is setup correctly
 test_environment:
-	echo $(PROJECT_DIR)/data/raw
 	$(PYTHON_INTERPRETER) test_environment.py
