@@ -78,8 +78,9 @@ venv
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# Exclude data from source control by default
-/data/
+# Exclude data and models from source control by default
+data/
+models/
 
 # Exclude drafts and notes
 drafts/
