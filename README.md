@@ -61,11 +61,11 @@ The project preprocessing pipeline is integrated with the Kaggle API, so when yo
 To make the automation process possible you need:
 
 1. Create a Kaggle API token, following the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication). This will download a fresh authentication token `kaggle.json` onto your machine. 
-2. Save obtained `kaggle.json` file to the `~/.kaggle` folder or to the environment location of you choice eg. `home/user/conda/env/moa/bin`
-3. Configure the `get_lish_moa.sh` file in the `src` directory:
-   - set `KAGGLE_CONFIG_DIR` environment variable equal to the path where you store the Kaggle API token `kaggle.json`
-   - set full path to the `data/raw` to unzip here downloaded dataset
+2. Save obtained `kaggle.json` file to the `~/.kaggle` folder
+   
+** NOTE. ** If you need to store the Kaggle API token in an environment location, you must set the `KAGGLE_CONFIG_DIR` environment variable to the path where you store the Kaggle API token `kaggle.json`, for example:
 
+    export KAGGLE_CONFIG_DIR=/home/user/miniconda3/envs/moa/bin
 
 ## Project Organization
 
