@@ -22,9 +22,9 @@ As is customary, the dataset has been split into testing and training subsets. H
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
-$$
-score = -\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[ y_{i,m}{\rm log}\left(\hat{y}_{i,m} \right) + \left( 1 - y_{i,m} \right) {\rm log}\left( 1 - \hat{y}_{i,m} \right) \right]
-$$
+```math
+\text{score} = - \frac{1}{M}\sum_{m=1}^{M} \frac{1}{N} \sum_{i=1}^{N} \left[ y_{i,m} \log(\hat{y}_{i,m}) + (1 - y_{i,m}) \log(1 - \hat{y}_{i,m})\right]
+```
 
 ## Data
 
