@@ -2,7 +2,7 @@
 
 _The main goal of this research project is to develop an efficient algorithm for classifying drugs based on their biological activity._
 
-## Description
+## :book: About
 
 The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[[1]](#1)
 
@@ -18,14 +18,14 @@ One approach is to treat a sample of human cells with the drug and then analyze 
 
 As is customary, the dataset has been split into testing and training subsets. Hence, our task is to use the training dataset to develop an algorithm that automatically labels each case in the test set as one or more MoA classes. Note that since drugs can have multiple MoA annotations, the task is formally a multi-label classification problem.
 
-## Evaluation
+## :chart_with_upwards_trend: Evaluation Metric
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
 <div align="center"><img style="background: white;" src="https://latex.codecogs.com/gif.latex?\text{score}=-\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[y_{i,m}\log(\hat{y}_{i,m})+(1-y_{i,m})\log(1-\hat{y}_{i,m})\right]"/></div>
 
 
-## Data
+## :floppy_disk: Dataset
 
 In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
 
@@ -33,7 +33,7 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-### Files
+**List of files:**
 
 - `train_features.csv` - Features for the training set. Features g- signify gene expression data, and c- signify cell viability data. cp_type indicates samples treated with a compound (cp_vehicle) or with a control perturbation (ctrl_vehicle); control perturbations have no MoAs; cp_time and cp_dose indicate treatment duration (24, 48, 72 hours) and dose (high or low).
 - `train_drug.csv` - This file contains an anonymous drug_id for the training set only.
@@ -42,31 +42,42 @@ In this competition, we need to predict multiple targets of the Mechanism of Act
 - `test_features.csv` - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
 - `sample_submission.csv` - A submission file in the correct format.
 
-### Download dataset
+### :inbox_tray: How to Get Data
 
-To access the data, you need to follow these steps:
+Follow the next steps to access data:
 
-1. Sign up for the [Kaggle](https://www.kaggle.com/) data science community if you haven't already
-2. Accept the [contest rules](https://www.kaggle.com/c/lish-moa/rules)
-3. [Download the original dataset](https://www.kaggle.com/c/lish-moa/data)
-4. Unzip downloaded zip file to the `data/raw` project folder.
+1. Sign in to your [Kaggle](https://www.kaggle.com/) account.
+2. Accept [MoA competition rules](https://www.kaggle.com/c/lish-moa/rules).
+3. Download the [dataset](https://www.kaggle.com/c/lish-moa/data) manually.
+4. Unzip downloaded `lish_moa.zip` file to the `data/raw` project directory.
 
-### Kaggle API
+## :closed_lock_with_key: How to Use the Kaggle API
 
-**If you don't need to use the Kaggle CLI tools, just skip the section.**
+The project is integrated with the Kaggle API. When you run the `make data` command in your terminal, the script will automatically load the data set from Kaggle and extract it to the `data/raw` directory. But to make this possible, you must first configure your Kaggle API credentials.
 
-The project preprocessing pipeline is integrated with the Kaggle API, so when you run the `make data` command, it first starts a check process to see if the dataset exists, and if not, the dataset will be loaded into the `data/raw` directory automatically.
+Follow these steps to set up the Kaggle API credentials:
 
-To make the automation process possible you need:
-
-1. Create a Kaggle API token, following the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication). This will download a fresh authentication token `kaggle.json` onto your machine. 
-2. Save obtained `kaggle.json` file to the `~/.kaggle` folder
+1. Create a new Kaggle API token, according to the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication).
+2. Save obtained `kaggle.json` file to the `~/.kaggle` folder.
    
-** NOTE. ** If you need to store the Kaggle API token in an environment location, you must set the `KAGGLE_CONFIG_DIR` environment variable to the path where you store the Kaggle API token `kaggle.json`, for example:
+> 📌 **Note:** If you need to store the Kaggle API token in an environment location, you must set the **KAGGLE_CONFIG_DIR** environment variable to the path where you store the Kaggle API token **kaggle.json**. For example, on a Unix-based machine, the command would look like this:
 
+```bash
     export KAGGLE_CONFIG_DIR=/home/user/miniconda3/envs/moa/bin
+```
 
-## Project Organization
+For your security, ensure that other users of your computer do not read access to your credentials: `chmod 600 ~/.kaggle/kaggle.json`
+
+You can also choose to export your Kaggle username and token to the environment:
+
+```bash
+    export KAGGLE_USERNAME=niander_wallace
+    export KAGGLE_KEY=xxxxxxxxxxxxxx
+```
+
+Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about the Kaggle API and how to use Kaggle CLI tools.
+
+## :open_file_folder: Project Organization
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -103,35 +114,25 @@ To make the automation process possible you need:
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
-## How to use
+## :hammer_and_wrench: How to Reproduce the Solution
 
-To reproduce the solution, you need to clone the repository:
+Follow the steps bellow to reproduce the solution:
 
-      git clone https://github.com/oleksandrsirenko/mechanisms-of-action-moa-prediction.git moa
-    
-and [download the training dataset manually](#download-dataset) or [setup the Kaggle CLI](#kaggle-api) to automate this process.
+1. Clone the repository: `git clone https://github.com/oleksandrsirenko/mechanisms-of-action-moa-prediction.git moa`
+2. [Get dataset manually](#how-to-access-and-use-data) or [configure the Kaggle API](#how-to-use-the-kaggle-api) to automate this process.
+3. Create a virtual environment for the project: `make environment`
+4. Activate virtual environment: `source moa activate`
+5. Install dependencies: `make requirements`
+6. Prepare dataset: `make data`
+7. Train models: `make train`
+8. Get predictions: `make prediction`
+9. Create a report: `make report`
 
-Then follow these steps:
-
-1. Make a virtual environment for the project: `make environment`
-2. Activate the environment: `source moa activate`
-3. Install dependencies: `make requirements`
-4. Prepare dataset: `make data`
-5. Training: `make train`
-6. Inference: `make prediction`
-7. Create a report: `make report`
-
-
-## References
+## :link: References
 
  <a id="1">1.</a> [Mechanisms of Action (MoA) Prediction](https://www.kaggle.com/c/lish-moa) challenge.
- 
  <a id="2">2.</a> Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
-
  <a id="3">3.</a> Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
-
 <a id="4">4.</a> Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
-
 <a id="5">5.</a> Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
-
 <a id="6">6.</a> [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
