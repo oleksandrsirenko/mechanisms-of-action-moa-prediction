@@ -37,7 +37,7 @@ endif
 
 ## Proprocess dataset
 data: get_gata
-	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw data/processed
+	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw/ data/processed/
 
 ## Delete all compiled Python files
 clean:
