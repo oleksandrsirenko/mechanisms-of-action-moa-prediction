@@ -39,6 +39,16 @@ endif
 data: get_gata
 	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw/ data/processed/
 
+## Initialize main training loop
+train: data
+	$(PYTHON_INTERPRETER) src/train.py data/processed/ models/
+
+## Inference with ensembling pre-trained models
+prediction: train
+	$(PYTHON_INTERPRETER) src/predict.py models/ data/processed/ data/predictions/
+
+## Create report
+
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
