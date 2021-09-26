@@ -6,7 +6,7 @@ _The main goal of this research project is to develop an efficient algorithm for
 
 The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[(1)](#link-references)
 
->What is the Mechanism of Action (MoA) of a drug? And why is it important?
+> What is the Mechanism of Action (MoA) of a drug? And why is it important?
 
 In pharmacology, the term mechanism of action (MOA) refers to the specific biochemical interaction through which a drug substance produces its pharmacological effect.[(2)](#link-references) A mechanism of action usually includes mention of the specific molecular targets to which the drug binds, such as an enzyme or receptor.[(3)](#link-references)
 
@@ -16,7 +16,11 @@ In the past, scientists derived drugs from natural products or were inspired by 
 
 One approach is to treat a sample of human cells with the drug and then analyze the cellular responses with algorithms that search for similarity to known patterns in large genomic databases, such as libraries of gene expression ([GEO](https://www.ncbi.nlm.nih.gov/geo/), [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home), etc.) or cell viability patterns of drugs with known MoAs.
 
-As is customary, the dataset has been split into testing and training subsets. Hence, our task is to use the training dataset to develop an algorithm that automatically labels each case in the test set as one or more MoA classes. Note that since drugs can have multiple MoA annotations, the task is formally a multi-label classification problem.
+<center>
+
+![moa task schema](reports/figures/mao_aim.png)
+
+</center>
 
 ## :chart_with_upwards_trend: Evaluation Metric
 
@@ -33,6 +37,13 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
+<center>
+
+![gene expression features](reports/figures/gene_dist.png)
+![gene expression features](reports/figures/cell_dist.png)
+
+</center>
+
 **List of files:**
 
 - `train_features.csv` - Features for the training set. Features g- signify gene expression data, and c- signify cell viability data. cp_type indicates samples treated with a compound (cp_vehicle) or with a control perturbation (ctrl_vehicle); control perturbations have no MoAs; cp_time and cp_dose indicate treatment duration (24, 48, 72 hours) and dose (high or low).
@@ -42,18 +53,67 @@ In this competition, we need to predict multiple targets of the Mechanism of Act
 - `test_features.csv` - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
 - `sample_submission.csv` - A submission file in the correct format.
 
-### :inbox_tray: How to Get Data
+## Data Preprocessing Pipeline
 
-Follow the next steps to access data:
+> 📌 **Note:** The project automation workflow is based on [Make GNU](https://en.wikipedia.org/wiki/Make_(software)) and integrated with the Kaggle API. The data preprocessing pipeline is part of the project automation workflow. 
 
-1. Sign in to your [Kaggle](https://www.kaggle.com/) account.
-2. Accept [MoA competition rules](https://www.kaggle.com/c/lish-moa/rules).
-3. Download the [dataset](https://www.kaggle.com/c/lish-moa/data) manually.
+To build a preprocessing pipeline, run the command `make data` in your terminal. This command triggers a chain of scripts in the following order:
+
+1. Check the `data/raw` directory to make sure there is a training dataset.
+2. Download dataset from Kaggle server if `data/raw` is empty, or skip this step otherwise.
+3. Extract downloaded dataset to the `data/raw` directory
+4. Delete downloaded zip file
+5. Perform feature engineering tasks to prepare dataset for training
+6. Perform feature selection
+7. Save the prepared dataset in the `data/processed` directory
+  
+To make this possible, you must first [configure your Kaggle API credentials.](#closed_lock_with_key-how-to-use-the-kaggle-api). 
+
+> 📌 **Note:** If you do not want to use Kaggle CLI tools you can [download and extract the dataset manually](#inbox_tray-how-to-download-and-extract-the-dataset-manually). It will not harm the data preprocessing pipeline.
+
+## :inbox_tray: How to Download and Extract the Dataset Manually
+
+Follow the next steps to access and download data manually:
+
+1. Sign in to your [Kaggle](https://www.kaggle.com/) account or sign up if you haven't an account yet.
+2. Accept [MoA competition rules](https://www.kaggle.com/c/lish-moa/rules) - it will grant you full access to MoA competition data.
+3. Download the [dataset](https://www.kaggle.com/c/lish-moa/data).
 4. Unzip downloaded `lish_moa.zip` file to the `data/raw` project directory.
 
-## :closed_lock_with_key: How to Use the Kaggle API
+ ## :rocket: Models
 
-The project is integrated with the Kaggle API. When you run the `make data` command in your terminal, the script will automatically load the data set from Kaggle and extract it to the `data/raw` directory. But to make this possible, you must first configure your Kaggle API credentials.
+We use PyTorch as a primary deep learning framework for this project. The current solution is based on two architectures, the first is one-dimensional CNN and the second is PyTorch TabNet. Both architectures are adapted for the task of multi-label classification and fine-tuned for better performance.
+
+#### TabNet
+
+![TabNet architecture](reports/figures/tabnet.png)
+
+## :gear: The Project Automation Workflow
+
+As was previously mentioned, project automation workflow is based on [Make GNU](https://www.gnu.org/software/make/). The core of this The Makefile is a core of this workflow - is are just rules that form a chain of a high abstraction level and connect all the processes inside the project together. 
+
+
+#### All `make` commands:
+
+| Command                 | Description                      | Prerequisite       |
+| ----------------------- | -------------------------------- | ------------------ |
+| `make environment`      | Create a virtual environment     |                    |
+| `source moa activate`   | Activate virtual environment     |                    |
+| `make test_environment` | Test virtual environment         |                    |
+| `make requirements`     | Install dependencies             | `test_environment` |
+| `make get_data`         | Download and extract data        |                    |
+| `make data`             | Make data preprocessing pipeline | `get_data`         |
+| `make train`            | Initialize model training        | `data`             |
+| `make prediction `      | Make prediction                  | `train`            |
+| `make report`           | Create report                    |                    |
+| `make clean`            | Delete all compiled Python files |                    |
+| `make lint`             | Lint using flake8                |                    |
+
+**What Does the `Prerequisite` Column Mean?**
+
+The entries in the `Prerequisite` column indicate that a particular command is based on the top of a particular condition. For example, `data` is a prerequisite for the `make train` command. The logic here is pretty simple - you need to prepare the data before starting training. But you don't need to run `prerequisites` manually. When you run the target command in the terminal, it will run the prerequisite automatically and continue only if successful.
+
+## :closed_lock_with_key: How to Use the Kaggle API
 
 Follow these steps to set up the Kaggle API credentials:
 
@@ -83,6 +143,7 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project
     ├── data
+    │   ├── predictions    <- Predicted targets
     │   ├── processed      <- The final, canonical data sets for modeling. Obtained after
     │   │                     preprocessing, merging, cleaning, feature engineering etc.
     │   └── raw            <- The original, immutable data dump. Should be considered as read only.
@@ -114,7 +175,7 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
-## :hammer_and_wrench: How to Reproduce the Solution
+## :bulb: How to Reproduce the Solution
 
 Follow the steps bellow to reproduce the solution:
 
@@ -125,8 +186,7 @@ Follow the steps bellow to reproduce the solution:
 5. Install dependencies: `make requirements`
 6. Prepare dataset: `make data`
 7. Train models: `make train`
-8. Get predictions: `make prediction`
-9. Create a report: `make report`
+8. Make predictions: `make prediction`
 
 ## :link: References
 
@@ -134,5 +194,28 @@ Follow the steps bellow to reproduce the solution:
  2. Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
  3. Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
  4. Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
- 5. Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
- 6. [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
+ 5. [GEO](https://www.ncbi.nlm.nih.gov/geo/) is a public functional genomics data repository supporting MIAME-compliant data submissions.
+ 6. [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home)
+ 7. Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
+ 8. [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
+
+## Current Status
+
+> In progress
+
+TODO list:
+
+- [x] Define project structure
+- [x] Automate workflow with Makefile
+- [x] Integrate Kaggle API
+- [x] Create data preprocessing pipeline
+- [x] Make Dataset class
+- [x] Make metrics
+- [x] Define helper functions
+- [x] Build baseline PyTorch model
+- [ ] Construct training loop
+- [ ] Create TabNet model
+- [ ] Ensemble models
+- [ ] Make inference
+- [ ] Automate report fetching
+- [ ] Implement remote training on GPU
