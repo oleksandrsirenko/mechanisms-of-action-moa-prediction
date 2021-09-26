@@ -48,6 +48,8 @@ prediction: train
 	$(PYTHON_INTERPRETER) src/predict.py models/ data/processed/ data/predictions/
 
 ## Create report
+report:
+	$(PYTHON_INTERPRETER) make_report.py
 
 ## Delete all compiled Python files
 clean:
