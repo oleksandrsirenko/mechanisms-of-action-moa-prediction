@@ -16,17 +16,17 @@ In the past, scientists derived drugs from natural products or were inspired by 
 
 One approach is to treat a sample of human cells with the drug and then analyze the cellular responses with algorithms that search for similarity to known patterns in large genomic databases, such as libraries of gene expression ([GEO](https://www.ncbi.nlm.nih.gov/geo/), [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home), etc.) or cell viability patterns of drugs with known MoAs.
 
-<center>
-
-![moa task schema](reports/figures/mao_aim.png)
-
-</center>
+<div align="center">
+  <img src="reports/figures/mao_aim.png"/>
+</div>
 
 ## :chart_with_upwards_trend: Evaluation Metric
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
-<div align="center"><img style="background: white;" src="https://latex.codecogs.com/gif.latex?\text{score}=-\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[y_{i,m}\log(\hat{y}_{i,m})+(1-y_{i,m})\log(1-\hat{y}_{i,m})\right]"/></div>
+<div align="center">
+<img style="background: white;" src="https://latex.codecogs.com/gif.latex?\text{score}=-\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[y_{i,m}\log(\hat{y}_{i,m})+(1-y_{i,m})\log(1-\hat{y}_{i,m})\right]"/>
+</div>
 
 
 ## :floppy_disk: Dataset
@@ -37,12 +37,10 @@ The training data has an additional (optional) set of MoA labels that are not in
 
 In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
 
-<center>
-
-![gene expression features](reports/figures/gene_dist.png)
-![gene expression features](reports/figures/cell_dist.png)
-
-</center>
+<div align="center">
+  <img src="reports/figures/gene_dist.png"/>
+  <img src="reports/figures/cell_dist.png"/>
+</div>
 
 **List of files:**
 
@@ -86,12 +84,13 @@ We use PyTorch as a primary deep learning framework for this project. The curren
 
 #### TabNet
 
-![TabNet architecture](reports/figures/tabnet.png)
+<div align="center">
+  <img src="reports/figures/tabnet.png"/>
+</div>
 
 ## :gear: The Project Automation Workflow
 
 As was previously mentioned, project automation workflow is based on [Make GNU](https://www.gnu.org/software/make/). The core of this The Makefile is a core of this workflow - is are just rules that form a chain of a high abstraction level and connect all the processes inside the project together. 
-
 
 #### All `make` commands:
 
@@ -190,7 +189,7 @@ Follow the steps bellow to reproduce the solution:
 
 ## :link: References
 
- 1. [Mechanisms of Action (MoA) Prediction](https://www.kaggle.com/c/lish-moa) challenge.
+ 1. [Mechanisms of Action (MoA) Prediction](https://www.kaggle.com/c/lish-moa).
  2. Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
  3. Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
  4. Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
