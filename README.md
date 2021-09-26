@@ -24,11 +24,6 @@ One approach is to treat a sample of human cells with the drug and then analyze 
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
-<div align="center">
-<img style="background: white;" src="https://latex.codecogs.com/gif.latex?\text{score}=-\frac{1}{M}\sum_{m=1}^{M}\frac{1}{N}\sum_{i=1}^{N}\left[y_{i,m}\log(\hat{y}_{i,m})+(1-y_{i,m})\log(1-\hat{y}_{i,m})\right]"/>
-</div>
-
-
 ## :floppy_disk: Dataset
 
 In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
