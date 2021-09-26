@@ -1,6 +1,6 @@
 # Mechanisms of Action (MoA) Prediction
 
-_The main goal of this research project is to develop an efficient algorithm for classifying drugs based on their biological activity._
+_Develop an efficient algorithm for classifying drugs based on their biological activity._
 
 ## :book: About
 
