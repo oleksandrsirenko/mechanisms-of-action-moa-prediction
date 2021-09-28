@@ -117,16 +117,20 @@ Follow these steps to set up the Kaggle API credentials:
 > 📌 **Note:** If you need to store the Kaggle API token in an environment location, you must set the **KAGGLE_CONFIG_DIR** environment variable to the path where you store the Kaggle API token **kaggle.json**. For example, on a Unix-based machine, the command would look like this:
 
 ```bash
-    export KAGGLE_CONFIG_DIR=/home/user/miniconda3/envs/moa/bin
+  export KAGGLE_CONFIG_DIR=/home/user/miniconda3/envs/moa/bin
 ```
 
-For your security, ensure that other users of your computer do not read access to your credentials: `chmod 600 ~/.kaggle/kaggle.json`
+For your security, ensure that other users of your computer do not read access to your credentials:
+
+```bash
+  chmod 600 ~/.kaggle/kaggle.json
+```
 
 You can also choose to export your Kaggle username and token to the environment:
 
 ```bash
-    export KAGGLE_USERNAME=niander_wallace
-    export KAGGLE_KEY=xxxxxxxxxxxxxx
+  export KAGGLE_USERNAME=niander_wallace
+  export KAGGLE_KEY=xxxxxxxxxxxxxx
 ```
 
 Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about the Kaggle API and how to use Kaggle CLI tools.
