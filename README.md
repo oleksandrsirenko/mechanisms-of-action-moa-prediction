@@ -85,7 +85,7 @@ We use PyTorch as a primary deep learning framework for this project. The curren
 
 ## :gear: The Project Automation Workflow
 
-As was previously mentioned, project automation workflow is based on [Make GNU](https://www.gnu.org/software/make/). The core of this The Makefile is a core of this workflow - is are just rules that form a chain of a high abstraction level and connect all the processes inside the project together. 
+As was previously mentioned, project automation workflow is based on [Make GNU](https://www.gnu.org/software/make/). The core of Make GNU is a Makefile. It contains the set of CLI rules so-called `make` commands written with C. These commands form a chain of a high abstraction level and connect all the processes inside the project together. Below, you can find a table of all the `make` commands implemented in this project.
 
 #### All `make` commands:
 
