@@ -18,6 +18,23 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
+## Set up python interpreter environment (conda or python venv)
+env:
+ifeq (True,$(HAS_CONDA))
+	@echo ">>> Detected conda, creating conda environment."
+	conda create --name $(PROJECT_NAME) python=3
+	@echo ">>> New conda env created. Activate with:\
+	\nsource activate $(PROJECT_NAME)"
+else
+	$(PYTHON_INTERPRETER) -m venv .venv
+	@echo ">>> New python env created. Activate on Unix or MacOS with:\
+	\nsource $(PROJECT_NAME)/bin/activate"
+endif
+
+## Test python environment is set up correctly
+test_env:
+	$(PYTHON_INTERPRETER) test_environment.py
+
 ## Install python dependencies based on the environment
 requirements: test_environment
 ifeq (True,$(HAS_CONDA))
@@ -41,7 +58,7 @@ else
 	@echo ">>> MOA dataset is ready for preprocessing."
 endif
 
-## Proprocess dataset
+## Preprocess dataset
 data: get_gata
 	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw/ data/processed/
 
@@ -65,23 +82,6 @@ clean:
 ## Lint using flake8
 lint:
 	flake8 src
-
-## Set up python interpreter environment (conda or venv)
-env:
-ifeq (True,$(HAS_CONDA))
-	@echo ">>> Detected conda, creating conda environment."
-	conda create --name $(PROJECT_NAME) python=3
-	@echo ">>> New conda env created. Activate with:\
-	\nsource activate $(PROJECT_NAME)"
-else
-	$(PYTHON_INTERPRETER) -m venv .venv
-	@echo ">>> New python env created. Activate on Unix or MacOS with:\
-	\nsource $(PROJECT_NAME)/bin/activate"
-endif
-
-## Test python environment is set up correctly
-test_env:
-	$(PYTHON_INTERPRETER) test_environment.py
 
 # List all available `make` targets and their descriptions
 help:
