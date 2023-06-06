@@ -4,7 +4,7 @@ _Develop an efficient algorithm for classifying drugs based on their biological 
 
 ## :dart: Goal
 
-Our goal in this competition is to predict the Mechanism of Action (MoA) response(s) of different samples (sig_id) using various inputs such as gene expression data and cell viability data.
+The project goal is to predict the Mechanism of Action (MoA) response(s) of different samples (sig_id) using various inputs such as gene expression data and cell viability data.
 
 ## :book: About
 
