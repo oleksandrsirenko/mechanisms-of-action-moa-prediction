@@ -91,17 +91,18 @@ This project's automation workflow is built on [Make GNU](https://www.gnu.org/so
 
 | Command                 | Description                      | Prerequisite       |
 | ----------------------- | -------------------------------- | ------------------ |
-| `make environment`      | Create a virtual environment     |                    |
+| `make env`              | Create a virtual environment     |                    |
 | `source moa activate`   | Activate virtual environment     |                    |
-| `make test_environment` | Test virtual environment         |                    |
+| `make test_env`         | Test virtual environment         |                    |
 | `make requirements`     | Install dependencies             | `test_environment` |
 | `make get_data`         | Download and extract data        |                    |
 | `make data`             | Make data preprocessing pipeline | `get_data`         |
 | `make train`            | Initialize model training        | `data`             |
-| `make prediction`       | Make prediction                  | `train`            |
+| `make pred`             | Make prediction                  | `train`            |
 | `make report`           | Create report                    |                    |
 | `make clean`            | Delete all compiled Python files |                    |
 | `make lint`             | Lint using flake8                |                    |
+| `make help`             | List all targets and descriptions|                    |
 
 **What Does the `Prerequisite` Column Mean?**
 
