@@ -18,12 +18,18 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install python dependencies
+## Install python dependencies based on the environment
 requirements: test_environment
+ifeq (True,$(HAS_CONDA))
+	@echo ">>> Installing conda dependencies..."
+	conda install --name $(PROJECT_NAME) --file requirements.txt
+else
+	@echo ">>> Installing pip dependencies..."
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+endif
 
-## Download dataset if not exist
+## Download dataset if it doesn't exist
 get_gata:
 ifneq ("$(wildcard $(PROJECT_DIR)/data/raw/train_drug.csv)", "")
 	@echo ">>> MOA dataset already exists and is ready for preprocessing."
@@ -44,7 +50,7 @@ train: data
 	$(PYTHON_INTERPRETER) src/train.py data/processed/ models/
 
 ## Inference with ensembling pre-trained models
-prediction: train
+pred: train
 	$(PYTHON_INTERPRETER) src/predict.py models/ data/processed/ data/predictions/
 
 ## Create report
@@ -60,19 +66,32 @@ clean:
 lint:
 	flake8 src
 
-## Set up python interpreter environment
-environment:
+## Set up python interpreter environment (conda or venv)
+env:
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
 	conda create --name $(PROJECT_NAME) python=3
 	@echo ">>> New conda env created. Activate with:\
 	\nsource activate $(PROJECT_NAME)"
 else
-	$(PYTHON_INTERPRETER) -m venv $(PROJECT_NAME)
+	$(PYTHON_INTERPRETER) -m venv .venv
 	@echo ">>> New python env created. Activate on Unix or MacOS with:\
 	\nsource $(PROJECT_NAME)/bin/activate"
 endif
 
-## Test python environment is setup correctly
-test_environment:
+## Test python environment is set up correctly
+test_env:
 	$(PYTHON_INTERPRETER) test_environment.py
+
+# List all available `make` targets and their descriptions
+help:
+	@echo "Available targets:"
+	@awk '/^[a-zA-Z\-\_0-9]+:/ { \
+		helpMessage = match(lastLine, /^## (.*)/); \
+		if (helpMessage) { \
+			helpCommand = $$1; \
+			helpMessage = substr(lastLine, RSTART + 3, RLENGTH); \
+			printf "  \033[36m%-20s\033[0m %s\n", helpCommand, helpMessage; \
+		} \
+	} \
+	{ lastLine = $$0 }' $(MAKEFILE_LIST)
