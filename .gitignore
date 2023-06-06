@@ -1,6 +1,9 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*.pyc
+*.pyo
+*.pyd
 *.py[cod]
+__pycache__/
 
 # C extensions
 *.so
@@ -8,6 +11,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+.venv/
 build/
 develop-eggs/
 dist/
@@ -47,7 +51,7 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# Django stuff
 *.log
 
 # Sphinx documentation
@@ -60,14 +64,14 @@ target/
 .env
 
 # Virtual environment configuration
-venv
+.venv
 
 # Database
 *.db
 *.rdb
 
-# Pycharm
-.idea
+# PyCharm
+.idea/
 
 # VS Code
 .vscode/
