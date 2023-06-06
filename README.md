@@ -2,6 +2,10 @@
 
 _Develop an efficient algorithm for classifying drugs based on their biological activity._
 
+## :dart: Goal
+
+Our goal in this competition is to predict the Mechanism of Action (MoA) response(s) of different samples (sig_id) using various inputs such as gene expression data and cell viability data.
+
 ## :book: About
 
 The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[(1)](#link-references)
@@ -10,11 +14,11 @@ The [Connectivity Map](https://clue.io/), a project within the Broad Institute o
 
 In pharmacology, the term mechanism of action (MOA) refers to the specific biochemical interaction through which a drug substance produces its pharmacological effect.[(2)](#link-references) A mechanism of action usually includes mention of the specific molecular targets to which the drug binds, such as an enzyme or receptor.[(3)](#link-references)
 
-In the past, scientists derived drugs from natural products or were inspired by traditional remedies. Very common drugs, such as paracetamol, known in the US as acetaminophen, were put into clinical use decades before the biological mechanisms driving their pharmacological activities were understood. Today, with the advent of more powerful technologies, drug discovery has changed from the serendipitous approaches of the past to a more targeted model based on an understanding of the underlying biological mechanism of a disease. In this new framework, scientists seek to identify a protein target associated with a disease and develop a molecule that can modulate that protein target. As a shorthand to describe the biological activity of a given molecule, scientists assign a label referred to as mechanism-of-action or MoA for short.
+In the past, drugs were often derived from natural sources or traditional remedies without a clear understanding of how they worked. For example, paracetamol (known as acetaminophen in the US) was used clinically for decades before its biological mechanisms were fully understood. However, with technological advances, drug discovery has shifted towards a more targeted approach. Scientists now aim to identify the specific protein associated with disease and develop a molecule that can interact with it. To describe a molecule's biological activity, scientists use a label called mechanism-of-action (MoA).
 
 > How do we determine the MoAs of a new drug?
 
-One approach is to treat a sample of human cells with the drug and then analyze the cellular responses with algorithms that search for similarity to known patterns in large genomic databases, such as libraries of gene expression ([GEO](https://www.ncbi.nlm.nih.gov/geo/), [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home), etc.) or cell viability patterns of drugs with known MoAs.
+One approach is to treat a sample of human cells with the drug and then analyze the cellular responses with algorithms that search for similarity to known patterns in large genomic databases, such as libraries of gene expression [GEO](https://www.ncbi.nlm.nih.gov/geo/), [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home) or cell viability patterns of drugs with known MoAs.
 
 <div align="center">
   <img src="reports/figures/mao_aim.png"/>
@@ -26,11 +30,9 @@ Based on the MoA annotations, the accuracy of solutions will be evaluated on the
 
 ## :floppy_disk: Dataset
 
-In this challenge, we have an access to a unique dataset that combines gene expression and cell viability data. The data is based on a new technology that measures simultaneously (within the same samples) human cells’ responses to drugs in a pool of 100 different cell types (thus solving the problem of identifying ex-ante, which cell types are better suited for a given drug). In addition, we have access to MoA annotations for more than 5,000 drugs in this dataset.
+In this challenge, we can access a unique dataset that combines gene expression and cell viability data. This data is based on a new technology that measures human cells' responses to drugs in a pool of 100 different cell types, solving the problem of identifying which cell types are better suited for a given drug. Additionally, we have access to MoA annotations for over 5,000 drugs in this dataset.
 
-The training data has an additional (optional) set of MoA labels that are not included in the test data and not used for scoring.
-
-In this competition, we need to predict multiple targets of the Mechanism of Action (MoA) response(s) of different samples (sig_id), given various inputs such as gene expression data and cell viability data.
+The training data provides an optional set of MoA labels that are not included in the test data and are not used for scoring.
 
 <div align="center">
   <img src="reports/figures/gene_dist.png"/>
@@ -46,38 +48,36 @@ In this competition, we need to predict multiple targets of the Mechanism of Act
 - `test_features.csv` - Features for the test data. You must predict the probability of each scored MoA for each row in the test data.
 - `sample_submission.csv` - A submission file in the correct format.
 
-## Data Preprocessing Pipeline
+## :hammer_and_wrench: Data Preprocessing Pipeline
 
-> 📌 **Note:** The project automation workflow is based on [Make GNU](https://en.wikipedia.org/wiki/Make_(software)) and integrated with the Kaggle API. The data preprocessing pipeline is part of the project automation workflow. 
+> :warning: **Important**: The data processing pipeline is integrated with the Kaggle API. So before getting started, ensure to [configure your Kaggle API credentials](#closed_lock_with_key-how-to-use-the-kaggle-api).
 
 To build a preprocessing pipeline, run the command `make data` in your terminal. This command triggers a chain of scripts in the following order:
 
 1. Check the `data/raw` directory to make sure there is a training dataset.
-2. Download dataset from Kaggle server if `data/raw` is empty, or skip this step otherwise.
-3. Extract downloaded dataset to the `data/raw` directory
-4. Delete downloaded zip file
-5. Perform feature engineering tasks to prepare dataset for training
+2. Download the dataset from the Kaggle server if `data/raw` is empty, or skip this step otherwise.
+3. Extract the downloaded dataset to the `data/raw` directory
+4. Delete the downloaded zip file
+5. Perform feature engineering tasks to prepare the dataset for training
 6. Perform feature selection
 7. Save the prepared dataset in the `data/processed` directory
-  
-To make this possible, you must first [configure your Kaggle API credentials.](#closed_lock_with_key-how-to-use-the-kaggle-api). 
 
-> 📌 **Note:** If you do not want to use Kaggle CLI tools you can [download and extract the dataset manually](#inbox_tray-how-to-download-and-extract-the-dataset-manually). It will not harm the data preprocessing pipeline.
+Alternatively, you can retrieve the dataset manually. It does not harm the data preprocessing pipeline.
 
-## :inbox_tray: How to Download and Extract the Dataset Manually
+## :inbox_tray: How to Retrieve the Dataset Manually
 
-Follow the next steps to access and download data manually:
+To obtain data manually, follow the next steps:
 
-1. Sign in to your [Kaggle](https://www.kaggle.com/) account or sign up if you haven't an account yet.
+1. Sign in to your [Kaggle](https://www.kaggle.com/) account or sign up if you still need one.
 2. Accept [MoA competition rules](https://www.kaggle.com/c/lish-moa/rules) - it will grant you full access to MoA competition data.
 3. Download the [dataset](https://www.kaggle.com/c/lish-moa/data).
-4. Unzip downloaded `lish_moa.zip` file to the `data/raw` project directory.
+4. Unzip the downloaded `lish_moa.zip` file to the `data/raw` project directory.
 
- ## :rocket: Models
+## :rocket: Models
 
 We use PyTorch as a primary deep learning framework for this project. The current solution is based on two architectures, the first is one-dimensional CNN and the second is PyTorch TabNet. Both architectures are adapted for the task of multi-label classification and fine-tuned for better performance.
 
-#### TabNet
+### TabNet
 
 <div align="center">
   <img src="reports/figures/tabnet.png"/>
@@ -85,9 +85,9 @@ We use PyTorch as a primary deep learning framework for this project. The curren
 
 ## :gear: The Project Automation Workflow
 
-As was previously mentioned, project automation workflow is based on [Make GNU](https://www.gnu.org/software/make/). The core of Make GNU is a Makefile. It contains the set of CLI rules so-called `make` commands written with C. These commands form a chain of a high abstraction level and connect all the processes inside the project together. Below, you can find a table of all the `make` commands implemented in this project.
+This project's automation workflow is built on [Make GNU](https://www.gnu.org/software/make/), which uses a Makefile as its core. The Makefile includes CLI rules written in C as `make` commands. These commands connect all the processes in the project at a high level of abstraction. Refer to the table below for all the `make` commands used in this project.
 
-#### All `make` commands:
+#### All `make` commands
 
 | Command                 | Description                      | Prerequisite       |
 | ----------------------- | -------------------------------- | ------------------ |
@@ -98,14 +98,14 @@ As was previously mentioned, project automation workflow is based on [Make GNU](
 | `make get_data`         | Download and extract data        |                    |
 | `make data`             | Make data preprocessing pipeline | `get_data`         |
 | `make train`            | Initialize model training        | `data`             |
-| `make prediction `      | Make prediction                  | `train`            |
+| `make prediction`       | Make prediction                  | `train`            |
 | `make report`           | Create report                    |                    |
 | `make clean`            | Delete all compiled Python files |                    |
 | `make lint`             | Lint using flake8                |                    |
 
 **What Does the `Prerequisite` Column Mean?**
 
-The entries in the `Prerequisite` column indicate that a particular command is based on the top of a particular condition. For example, `data` is a prerequisite for the `make train` command. The logic here is pretty simple - you need to prepare the data before starting training. But you don't need to run `prerequisites` manually. When you run the target command in the terminal, it will run the prerequisite automatically and continue only if successful.
+In the `Prerequisite` column, you can see which commands require a specific condition to be met. For instance, the `make train` command requires `data` to be prepared beforehand. However, you do not have to run the prerequisites manually. When you execute the target command, it automatically runs the prerequisite and only proceeds if it is successful.
 
 ## :closed_lock_with_key: How to Use the Kaggle API
 
@@ -113,7 +113,7 @@ Follow these steps to set up the Kaggle API credentials:
 
 1. Create a new Kaggle API token, according to the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication).
 2. Save obtained `kaggle.json` file to the `~/.kaggle` folder.
-   
+
 > 📌 **Note:** If you need to store the Kaggle API token in an environment location, you must set the **KAGGLE_CONFIG_DIR** environment variable to the path where you store the Kaggle API token **kaggle.json**. For example, on a Unix-based machine, the command would look like this:
 
 ```bash
@@ -175,12 +175,12 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
 
 ## :bulb: How to Reproduce the Solution
 
-Follow the steps bellow to reproduce the solution:
+To reproduce the solution, do the following:
 
 1. Clone the repository: `git clone https://github.com/oleksandrsirenko/mechanisms-of-action-moa-prediction.git moa`
 2. [Get dataset manually](#inbox_tray-how-to-get-data) or [configure the Kaggle API](#closed_lock_with_key-how-to-use-the-kaggle-api) to automate this process.
-3. Create a virtual environment for the project: `make environment`
-4. Activate virtual environment: `source moa activate`
+3. Create the virtual environment for the project: `make environment`
+4. Activate the virtual environment: `source moa activate`
 5. Install dependencies: `make requirements`
 6. Prepare dataset: `make data`
 7. Train models: `make train`
