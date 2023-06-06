@@ -60,7 +60,8 @@ else
 endif
 
 ## Preprocess dataset
-data: get_gata
+data: get_data
+    mkdir -p $(PROJECT_DIR)/data/processed/
 	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw/ data/processed/
 
 ## Initialize main training loop
