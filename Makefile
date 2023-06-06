@@ -36,7 +36,7 @@ test_env:
 	$(PYTHON_INTERPRETER) test_environment.py
 
 ## Install python dependencies based on the environment
-requirements: test_environment
+requirements: test_env
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Installing conda dependencies..."
 	conda install --name $(PROJECT_NAME) --file requirements.txt
@@ -47,15 +47,16 @@ else
 endif
 
 ## Download dataset if it doesn't exist
-get_gata:
-ifneq ("$(wildcard $(PROJECT_DIR)/data/raw/train_drug.csv)", "")
-	@echo ">>> MOA dataset already exists and is ready for preprocessing."
-else
+get_data:
+	mkdir -p $(PROJECT_DIR)/data/raw
+ifeq ("$(wildcard $(PROJECT_DIR)/data/raw/train_drug.csv)", "")
 	@echo ">>> Data folder is empty. Downloading ..."
 	kaggle competitions download -c lish-moa
 	unzip lish-moa.zip -d $(PROJECT_DIR)/data/raw
 	rm *.zip
 	@echo ">>> MOA dataset is ready for preprocessing."
+else
+	@echo ">>> MOA dataset already exists and is ready for preprocessing."
 endif
 
 ## Preprocess dataset
