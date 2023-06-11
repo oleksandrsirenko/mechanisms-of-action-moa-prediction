@@ -202,20 +202,15 @@ To reproduce the solution, do the following:
 
 ## :link: References
 
-1. Mechanisms of Action (MoA) Prediction. Retrieved from [https://www.kaggle.com/c/lish-moa](https://www.kaggle.com/c/lish-moa).
-2. Spratto, G.R., & Woods, A.L. (2010). _Delmar Nurse's Drug Handbook_. Cengage Learning. ISBN 978-1-4390-5616-5.
-3. Grant, R.L., Combs, A.B., & Acosta, D. (2010). Experimental Models for the Investigation of Toxicological Mechanisms. In McQueen, C.A. (Ed.), _Comprehensive Toxicology_ (2nd ed., p. 204). Oxford: Elsevier. ISBN 978-0-08-046884-6.
-4. Corsello, S.M., et al. (2020). Discovering the anticancer potential of non-oncology drugs by systematic viability profiling. _Nature Cancer_. Advanced online publication. DOI: [10.1038/s43018-019-0018-6](https://doi.org/10.1038/s43018-019-0018-6).
-5. Gene Expression Omnibus (GEO). Retrieved from [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/).
-6. EMBL-EBI Expression Atlas. Retrieved from [https://www.ebi.ac.uk/gxa/home](https://www.ebi.ac.uk/gxa/home).
-7. Subramanian, A., et al. (2017). A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles. _Cell_, 171(6), 1437-1452.e17. DOI: [10.1016/j.cell.2017.10.049](https://doi.org/10.1016/j.cell.2017.10.049).
-8. Connectopedia. Retrieved from [https://clue.io/connectopedia/glossary](https://clue.io/connectopedia/glossary).
-Certainly! Here are the extracted references from the provided text:
-9. Henze, M. (n.d.). Explorations of Action - MoA EDA. Retrieved from [https://www.kaggle.com/code/headsortails/explorations-of-action-moa-eda/report](https://www.kaggle.com/code/headsortails/explorations-of-action-moa-eda/report).
-10. Yamlahi, A. (n.d.). Drugs MoA classification: EDA. Retrieved from [https://www.kaggle.com/code/amiiiney/drugs-moa-classification-eda/notebook](https://www.kaggle.com/code/amiiiney/drugs-moa-classification-eda/notebook).
-11. Tran, P., & Gligorijevic, V. (2023). Transfer Learning with Deep Tabular Models. _arXiv_. arXiv:2206.15306. Retrieved from [https://arxiv.org/abs/2206.15306](https://arxiv.org/abs/2206.15306).
-
-Please note that this is a partial list of references; additional sources may have been consulted during the project.
+ 1. [Mechanisms of Action (MoA) Prediction](https://www.kaggle.com/c/lish-moa).
+ 2. Spratto, G.R.; Woods, A.L. (2010). Delmar Nurse's Drug Handbook. Cengage Learning. ISBN 978-1-4390-5616-5.
+ 3. Grant, R.L.; Combs, A.B.; Acosta, D. (2010) "Experimental Models for the Investigation of Toxicological Mechanisms". In McQueen, C.A. Comprehensive Toxicology (2nd ed.). Oxford: Elsevier. p. 204. ISBN 978-0-08-046884-6.
+ 4. Corsello et al. [“Discovering the anticancer potential of non-oncology drugs by systematic viability profiling”](https://doi.org/10.1038/s43018-019-0018-6), Nature Cancer, 2020.
+ 5. [GEO](https://www.ncbi.nlm.nih.gov/geo/) is a public functional genomics data repository supporting MIAME-compliant data submissions.
+ 6. [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home)
+ 7. Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
+ 8. [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context).
+ 9. [Transfer Learning with Deep Tabular Models](https://arxiv.org/abs/2206.15306), arXiv, 2023.
 
 ## Current Status
 
@@ -227,10 +222,10 @@ TODO:
 - [x] Automate workflow with Makefile
 - [x] Integrate Kaggle API
 - [x] Create helper functions
-- [x] Create a data preprocessing pipeline
+- [x] Create data preprocessing pipeline
 - [x] Make Dataset class
 - [x] Build MLP model
-- [x] Construct a training loop
+- [x] Construct training loop
 - [x] Build ResNet model
 - [x] Implement model factory
 - [x] Implement cross-validation
@@ -241,59 +236,8 @@ TODO:
 - [ ] Tune hyperparameters
 - [ ] Perform model interpretation and explainability, compare models
 - [ ] Ensemble models (including MLP, ResNet, and FTTransformer, TabNet)
-- [ ] Make an inference using the ensemble of models
+- [ ] Make inference using the ensemble of models
 - [x] Document and organize code
 - [ ] Automate report fetching
 - [ ] Prepare visualizations and figures to support the findings
 - [ ] Write a research report or paper summarizing the findings
-
-## :chart_with_upwards_trend: Results
-
-Stay tuned for the upcoming results!
-
-## :raising_hand_man: Contributing
-
-If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome. Here's a quick guide:
-
-1. Fork the repo (button on the top right).
-2. Clone it to your local system (`git clone https://github.com/oleksandrsirenko/mechanisms-of-action-moa-prediction.git`).
-3. Make a new branch (`git checkout -b feature_branch`).
-4. Make your changes.
-5. Push the branch (`git push origin feature_branch`).
-6. Open a Pull Request on the GitHub page of this repository.
-
-Before creating a Pull Request, please ensure your code follows the style guidelines and passes all the tests.
-
-## :busts_in_silhouette: Team
-
-**Oleksandr Sirenko** – Data Scientist
-
-- Github: [@oleksandrsirenko](https://github.com/oleksandrsirenko)
-- LinkedIn: [Oleksandr Sirenko](https://www.linkedin.com/in/sirenko-oleksandr/)
-
-**Your name could be here!**
-
-Interested in contributing? We're open to collaboration. Please, follow the [contributing guidelines](#raising_hand_man-contributing).
-
-## :scroll: License
-
-The content of this project is licensed under the [MIT license](LICENSE.md).
-
-## :star: Acknowledgments
-
-I'd like to express my gratitude to the Kaggle community for the inspiration and the vast pool of shared knowledge that helps me grow as a Data Scientist. I also want to thank my colleagues Martin Henze and Amin Yamlahi for their outstanding EDAs that allow me to comprehend the competition data. Here are the links to their extraordinary works:
-
-- [Explorations of Action - MoA EDA](https://www.kaggle.com/code/headsortails/explorations-of-action-moa-eda/report)
-- [Drugs MoA classification: EDA](https://www.kaggle.com/code/amiiiney/drugs-moa-classification-eda/notebook)
-
-## :speech_balloon: Feedback
-
-If you have any feedback, questions, or ideas for future enhancements, feel free to reach out to me.
-
-## :postal_horn: News and Updates
-
-Stay tuned for project updates and announcements.
-
-## :phone: Contact
-
-Feel free to contact me at `oleksandr.sirenko2@nure.ua` for any project-related queries.
