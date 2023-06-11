@@ -8,13 +8,13 @@ The project goal is to predict the Mechanism of Action (MoA) response(s) of diff
 
 ## :book: About
 
-The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge with the goal of advancing drug development through improvements to MoA prediction algorithms.[(1)](#link-references)
+The [Connectivity Map](https://clue.io/), a project within the Broad Institute of MIT and Harvard, the [Laboratory for Innovation Science at Harvard (LISH)](https://lish.harvard.edu/), and the [NIH Common Funds Library of Integrated Network-Based Cellular Signatures (LINCS)](https://lincsproject.org/), present this challenge to advance drug development through improvements to MoA prediction algorithms.[(1)](#link-references)
 
 > What is the Mechanism of Action (MoA) of a drug? And why is it important?
 
 In pharmacology, the term mechanism of action (MOA) refers to the specific biochemical interaction through which a drug substance produces its pharmacological effect.[(2)](#link-references) A mechanism of action usually includes mention of the specific molecular targets to which the drug binds, such as an enzyme or receptor.[(3)](#link-references)
 
-In the past, drugs were often derived from natural sources or traditional remedies without a clear understanding of how they worked. For example, paracetamol (known as acetaminophen in the US) was used clinically for decades before its biological mechanisms were fully understood. However, with technological advances, drug discovery has shifted towards a more targeted approach. Scientists now aim to identify the specific protein associated with disease and develop a molecule that can interact with it. To describe a molecule's biological activity, scientists use a label called mechanism-of-action (MoA).
+In the past, drugs were often derived from natural sources or traditional remedies without a clear understanding of how they worked. For example, paracetamol (known as acetaminophen in the US) was used clinically for decades before its biological mechanisms were fully understood. However, with technological advances, drug discovery has shifted towards a more targeted approach. Scientists now aim to identify the specific protein associated with disease and develop a molecule that can interact with it. Scientists use a mechanism of action (MoA) label to describe a molecule's biological activity.
 
 > How do we determine the MoAs of a new drug?
 
@@ -98,7 +98,7 @@ By incorporating these models, we explore diverse approaches and leverage their 
 
 ## :gear: The Project Automation Workflow
 
-This project's automation workflow is built on [Make GNU](https://www.gnu.org/software/make/), which uses a Makefile as its core. The Makefile includes CLI rules written in C as `make` commands. These commands connect all the processes in the project at a high level of abstraction. Refer to the table below for all the `make` commands used in this project.
+This project's automation workflow is built on [Make GNU](https://www.gnu.org/software/make/), which uses a Makefile as its core. The Makefile includes CLI rules written in C as `make` commands. These commands connect all the processes in the project at a high level of abstraction. Refer to the following table for all this project's `make` commands.
 
 #### All `make` commands
 
@@ -125,10 +125,10 @@ In the `Prerequisite` column, you can see which commands require a specific cond
 
 Follow these steps to set up the Kaggle API credentials:
 
-1. Create a new Kaggle API token, according to the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication).
+1. Create a new Kaggle API token according to the [instructions](https://www.kaggle.com/docs/api#getting-started-installation-&-authentication).
 2. Save obtained `kaggle.json` file to the `~/.kaggle` folder.
 
-> 📌 **Note:** If you need to store the Kaggle API token in an environment location, you must set the **KAGGLE_CONFIG_DIR** environment variable to the path where you store the Kaggle API token **kaggle.json**. For example, on a Unix-based machine, the command would look like this:
+> 📌 **Note:** If you need to store the Kaggle API token in an environment location, you must set the **KAGGLE_CONFIG_DIR** environment variable to the path where you keep the Kaggle API token **kaggle.json**. For example, on a Unix-based machine, the command would look like this:
 
 ```bash
   export KAGGLE_CONFIG_DIR=/home/user/miniconda3/envs/moa/bin
@@ -155,16 +155,16 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project
     ├── data
-    │   ├── predictions    <- Predicted targets
-    │   ├── processed      <- The final, canonical data sets for modeling. Obtained after
-    │   │                     preprocessing, merging, cleaning, feature engineering etc.
-    │   └── raw            <- The original, immutable data dump. Should be considered as read only.
+    │   ├── predictions    <- Predicted targets
+    │   ├── processed      <- The final canonical data sets for modeling. Obtained after
+    │   │                     preprocessing, merging, cleaning, feature engineering, etc.
+    │   └── raw            <- The original, immutable data dump. Should be considered as read-only.
     ├── logs               <- Logs and tensorboard event files
     ├── drafts             <- Drafts, hypothesis testing
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │   └── configs        <- Config files for implemented models
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+    │   └── configs        <- Config files for implemented models
+    ├── notebooks          <- Jupyter notebooks. A naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
     │   │                     `1.0-os-initial-data-exploration`
     │   ├── exploratory    <- Contains initial explorations
@@ -175,7 +175,7 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+    │   └── figures        <- Generated graphics and figures to be used in reporting
     │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
