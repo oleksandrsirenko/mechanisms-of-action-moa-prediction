@@ -109,7 +109,7 @@ This project's automation workflow is built on [Make GNU](https://www.gnu.org/so
 | `make test_env`         | Test virtual environment         |                    |
 | `make requirements`     | Install dependencies             | `test_environment` |
 | `make raw_data`         | Download and extract data from Kaggle     |                    |
-| `make data`             | Make data preprocessing pipeline | `get_data`         |
+| `make data`             | Make data preprocessing pipeline | `raw_data`         |
 | `make train`            | Initialize model training        | `data`             |
 | `make pred`             | Make prediction                  | `train`            |
 | `make report`           | Create report                    |                    |
@@ -154,6 +154,7 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project
+    ├── configs            <- Config files for implemented models and more
     ├── data
     │   ├── predictions    <- Predicted targets
     │   ├── processed      <- The final canonical data sets for modeling. Obtained after
@@ -163,7 +164,6 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     ├── drafts             <- Drafts, hypothesis testing
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │   └── configs        <- Config files for implemented models
     ├── notebooks          <- Jupyter notebooks. A naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
     │   │                     `1.0-os-initial-data-exploration`
