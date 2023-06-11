@@ -72,7 +72,7 @@ ifeq ($(shell find $(PROJECT_DIR)/data/processed -name "*.csv" | wc -l),0)
 	$(MAKE) data
 else
 	@echo "Processed files already exist. Skipping preprocessing and proceeding to training."
-	$(PYTHON_INTERPRETER) src/train.py --model_name $(MODEL) --config models/configs/$(MODEL)_config.json
+	$(PYTHON_INTERPRETER) src/train.py --model_name $(MODEL) --config configs/$(MODEL)_config.json
 endif
 
 
