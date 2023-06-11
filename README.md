@@ -28,6 +28,15 @@ One approach is to treat a sample of human cells with the drug and then analyze 
 
 Based on the MoA annotations, the accuracy of solutions will be evaluated on the average value of the [logarithmic loss function](https://www.kaggle.com/c/lish-moa/overview/evaluation) applied to each drug-MoA annotation pair.
 
+$$
+\text { score }=-\frac{1}{M} \sum_{m=1}^M \frac{1}{N} \sum_{i=1}^N\left[y_{i, m} \log \left(\hat{y_{i, m}}\right)+\left(1-y_{i, m}\right) \log \left(1-\hat{y_{i, m}}\right)\right]
+$$
+
+- $N$ represents the number of samples
+- $M$ represents the number of MoA targets
+- $y_{i, m}$ represents the true label of sample
+- $i$ for MoA target $m$, and $\hat{y_{i, m}}$ represents the predicted probability of sample $i$ for MoA target $m$.
+
 ## :floppy_disk: Dataset
 
 In this challenge, we can access a unique dataset that combines gene expression and cell viability data. This data is based on a new technology that measures human cells' responses to drugs in a pool of 100 different cell types, solving the problem of identifying which cell types are better suited for a given drug. Additionally, we have access to MoA annotations for over 5,000 drugs in this dataset.
