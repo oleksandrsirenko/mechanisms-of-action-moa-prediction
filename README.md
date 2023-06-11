@@ -75,7 +75,11 @@ To obtain data manually, follow the next steps:
 
 ## :rocket: Models
 
-We use PyTorch as a primary deep learning framework for this project. The current solution is based on two architectures, the first is one-dimensional CNN and the second is PyTorch TabNet. Both architectures are adapted for the task of multi-label classification and fine-tuned for better performance.
+In our project, we utilize four deep learning models: FNN (Feedforward Neural Network), ResNet (Residual Network), FTTransformer (Feature Transformer), and TabNet.
+
+FNN captures complex relationships and serves as a baseline model. ResNet addresses deep network training with gradient propagation through residual connections. FTTransformer excels in handling high-dimensional tabular data. TabNet combines deep networks and attention mechanisms for complex tabular scenarios.
+
+By incorporating these models, we explore diverse approaches and leverage their strengths to improve multiclass drug classification performance.
 
 ### TabNet
 
@@ -95,7 +99,7 @@ This project's automation workflow is built on [Make GNU](https://www.gnu.org/so
 | `source moa activate`   | Activate virtual environment     |                    |
 | `make test_env`         | Test virtual environment         |                    |
 | `make requirements`     | Install dependencies             | `test_environment` |
-| `make get_data`         | Download and extract data        |                    |
+| `make raw_data`         | Download and extract data from Kaggle     |                    |
 | `make data`             | Make data preprocessing pipeline | `get_data`         |
 | `make train`            | Initialize model training        | `data`             |
 | `make pred`             | Make prediction                  | `train`            |
@@ -146,11 +150,11 @@ Follow the [documentation](https://www.kaggle.com/docs/api) to learn more about 
     │   ├── processed      <- The final, canonical data sets for modeling. Obtained after
     │   │                     preprocessing, merging, cleaning, feature engineering etc.
     │   └── raw            <- The original, immutable data dump. Should be considered as read only.
-    │
+    ├── logs               <- Logs and tensorboard event files
     ├── drafts             <- Drafts, hypothesis testing
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
+    │   └── configs        <- Config files for implemented models
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │   │                     the creator's initials, and a short `-` delimited description, e.g.
     │   │                     `1.0-os-initial-data-exploration`
@@ -196,25 +200,35 @@ To reproduce the solution, do the following:
  5. [GEO](https://www.ncbi.nlm.nih.gov/geo/) is a public functional genomics data repository supporting MIAME-compliant data submissions.
  6. [EMBL-EBI Expression Atlas](https://www.ebi.ac.uk/gxa/home)
  7. Subramanian et al. [“A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles”](https://doi.org/10.1016/j.cell.2017.10.049), Cell, 2017.
- 8. [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context.
+ 8. [Connectopedia](https://clue.io/connectopedia/glossary) is a free, web-based dictionary of terms and concepts related to the Connectivity Map (including definitions of cell viability and gene expression data in that context).
+ 9. [Transfer Learning with Deep Tabular Models](https://arxiv.org/abs/2206.15306), arXiv, 2023.
 
 ## Current Status
 
 > In progress
 
-TODO list:
+TODO:
 
 - [x] Define project structure
 - [x] Automate workflow with Makefile
 - [x] Integrate Kaggle API
+- [x] Create helper functions
 - [x] Create data preprocessing pipeline
 - [x] Make Dataset class
-- [x] Make metrics
-- [x] Define helper functions
-- [x] Build baseline PyTorch model
-- [ ] Construct training loop
-- [ ] Create TabNet model
-- [ ] Ensemble models
-- [ ] Make inference
+- [x] Build MLP model
+- [x] Construct training loop
+- [x] Build ResNet model
+- [x] Implement model factory
+- [x] Implement cross-validation
+- [x] Monitor and log experiments
+- [ ] Build FTTransformer for transfer learning
+- [ ] Build TabNet model for transfer learning
+- [ ] Conduct feature engineering
+- [ ] Tune hyperparameters
+- [ ] Perform model interpretation and explainability, compare models
+- [ ] Ensemble models (including MLP, ResNet, and FTTransformer, TabNet)
+- [ ] Make inference using the ensemble of models
+- [x] Document and organize code
 - [ ] Automate report fetching
-- [ ] Implement remote training on GPU
+- [ ] Prepare visualizations and figures to support the findings
+- [ ] Write a research report or paper summarizing the findings
