@@ -7,6 +7,7 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROJECT_NAME = moa
 PYTHON_INTERPRETER = python3
+MODEL = MoaModel
 
 ifeq (,$(shell which conda))
 HAS_CONDA=False
@@ -47,7 +48,7 @@ else
 endif
 
 ## Download dataset if it doesn't exist
-get_data:
+raw_data:
 	mkdir -p $(PROJECT_DIR)/data/raw
 ifeq ("$(wildcard $(PROJECT_DIR)/data/raw/train_drug.csv)", "")
 	@echo ">>> Data folder is empty. Downloading ..."
@@ -60,13 +61,20 @@ else
 endif
 
 ## Preprocess dataset
-data: get_data
-    mkdir -p $(PROJECT_DIR)/data/processed/
-	$(PYTHON_INTERPRETER) src/make_dataset.py data/raw/ data/processed/
+data: raw_data
+	mkdir -p $(PROJECT_DIR)/data/processed/
+	$(PYTHON_INTERPRETER) src/dataset.py data/raw/ data/processed/
 
 ## Initialize main training loop
-train: data
-	$(PYTHON_INTERPRETER) src/train.py data/processed/ models/
+train:
+ifeq ($(shell find $(PROJECT_DIR)/data/processed -name "*.csv" | wc -l),0)
+	@echo "Processed files not found. Running preprocessing before training."
+	$(MAKE) data
+else
+	@echo "Processed files already exist. Skipping preprocessing and proceeding to training."
+	$(PYTHON_INTERPRETER) src/train.py --model_name $(MODEL) --config models/configs/$(MODEL)_config.json
+endif
+
 
 ## Inference with ensembling pre-trained models
 pred: train

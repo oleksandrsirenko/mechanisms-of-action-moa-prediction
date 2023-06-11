@@ -37,6 +37,9 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
+# training logs and tensorboard event files
+logs/
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
