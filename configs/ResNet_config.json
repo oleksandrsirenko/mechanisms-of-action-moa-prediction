@@ -1,0 +1,20 @@
+{
+    "model_name": "ResNet",
+    "layer_sizes": [
+        1024,
+        1024,
+        1024
+    ],
+    "lr": 0.001,
+    "batch_size": 64,
+    "num_epochs": 2,
+    "input_path": "data/processed",
+    "output_path": "models",
+    "folds": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ]
+}

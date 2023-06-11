@@ -1,0 +1,17 @@
+{
+    "model_name": "MoaModel",
+    "layer1_size": 1024,
+    "layer2_size": 2048,
+    "lr": 0.001,
+    "batch_size": 64,
+    "num_epochs": 2,
+    "input_path": "data/processed",
+    "output_path": "models",
+    "folds": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ]
+}
